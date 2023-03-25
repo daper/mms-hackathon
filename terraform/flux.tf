@@ -2,9 +2,9 @@
 module "gke_auth" {
   source               = "terraform-google-modules/kubernetes-engine/google//modules/auth"
   version              = ">= 24.0.0"
-  project_id           = google_container_cluster.primary.project
-  cluster_name         = google_container_cluster.primary.name
-  location             = google_container_cluster.primary.location
+  project_id           = var.project_id
+  cluster_name         = module.gke.name
+  location             = module.gke.region
 }
 
 provider "flux" {
@@ -12,9 +12,7 @@ provider "flux" {
     host = module.gke_auth.host
     token = module.gke_auth.token
 
-    client_certificate     = base64decode(google_container_cluster.primary.master_auth.0.client_certificate)
-    client_key             = base64decode(google_container_cluster.primary.master_auth.0.client_key)
-    cluster_ca_certificate = base64decode(google_container_cluster.primary.master_auth.0.cluster_ca_certificate)
+    cluster_ca_certificate = base64decode(module.gke.ca_certificate)
   }
 
   git = {

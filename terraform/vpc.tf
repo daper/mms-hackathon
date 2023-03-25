@@ -14,16 +14,24 @@ provider "google" {
   region  = var.region
 }
 
-# VPC
 resource "google_compute_network" "vpc" {
-  name                    = "${var.project_id}-vpc"
+  name                    = "vpc"
   auto_create_subnetworks = "false"
 }
 
-# Subnet
-resource "google_compute_subnetwork" "subnet" {
-  name          = "${var.project_id}-subnet"
+resource "google_compute_subnetwork" "cluster" {
+  name          = "cluster"
   region        = var.region
   network       = google_compute_network.vpc.name
-  ip_cidr_range = "172.27.0.0/25"
+  ip_cidr_range = "172.27.0.0/21"
+
+  secondary_ip_range {
+    range_name    = "pods"
+    ip_cidr_range = "172.27.8.0/21"
+  }
+
+  secondary_ip_range {
+    range_name    = "services"
+    ip_cidr_range = "172.27.16.0/21"
+  }
 }
