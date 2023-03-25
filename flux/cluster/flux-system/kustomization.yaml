@@ -4,6 +4,7 @@ kind: Kustomization
 resources:
   - gotk-components.yaml
   - gotk-sync.yaml
+  - cluster-settings.yaml
 patches:
   - patch: |
       apiVersion: apps/v1
@@ -18,3 +19,16 @@ patches:
     target:
       kind: Deployment
       labelSelector: app.kubernetes.io/part-of=flux
+  - patch: |
+      apiVersion: kustomize.toolkit.fluxcd.io/v1beta2
+      kind: Kustomization
+      metadata:
+        name: flux-system
+      spec:
+        postBuild:
+          substituteFrom:
+            - kind: ConfigMap
+              name: cluster-settings
+    target:
+      kind: Kustomization
+      name: flux-system
