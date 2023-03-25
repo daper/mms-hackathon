@@ -1,0 +1,10 @@
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: cluster-settings
+  namespace: flux-system
+data:
+  GKE_PROJECT: anxzsvl9qyjsvznb6wlvsso6l6qeg9
+  GKE_REGION: europe-southwest1
+  GKE_CLUSTER_NAME: anxzsvl9qyjsvznb6wlvsso6l6qeg9-gke

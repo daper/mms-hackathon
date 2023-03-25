@@ -17,7 +17,7 @@ spec:
     spec:
       containers:
         - name: web
-          image: europe-southwest1-docker.pkg.dev/anxzsvl9qyjsvznb6wlvsso6l6qeg9/mms-cloud-skeleton/web
+          image: ${GKE_REGION}-docker.pkg.dev/${GKE_PROJECT}/mms-cloud-skeleton/web
           ports:
             - name: http
               containerPort: 3000
