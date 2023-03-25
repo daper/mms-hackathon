@@ -2,6 +2,6 @@ version: '3'
 services:
   web:
     build: .
-    image: gcr.io/${PROJECT_ID}/mms-cloud-skeleton
+    image: europe-southwest1-docker.pkg.dev/${PROJECT_ID}/mms-cloud-skeleton/web
     ports:
       - 127.0.0.1:80:3000
