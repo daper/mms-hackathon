@@ -1,0 +1,34 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: mms-cloud-skeleton
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: mms-cloud-skeleton
+      app.kubernetes.io/instance: mms-cloud-skeleton
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: mms-cloud-skeleton
+        app.kubernetes.io/instance: mms-cloud-skeleton
+    spec:
+      containers:
+        - name: web
+          image: europe-southwest1-docker.pkg.dev/anxzsvl9qyjsvznb6wlvsso6l6qeg9/mms-cloud-skeleton/web
+          ports:
+            - name: http
+              containerPort: 3000
+              protocol: TCP
+          livenessProbe:
+            httpGet:
+              path: /healthz
+              port: http
+              scheme: HTTP
+          readinessProbe:
+            httpGet:
+              path: /healthz
+              port: http
+              scheme: HTTP

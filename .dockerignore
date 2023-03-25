@@ -12,3 +12,7 @@ yarn.lock
 
 # NPM
 package-lock.json
+
+.ssh
+flux
+terraform

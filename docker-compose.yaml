@@ -1,0 +1,7 @@
+version: '3'
+services:
+  web:
+    build: .
+    image: gcr.io/${PROJECT_ID}/mms-cloud-skeleton
+    ports:
+      - 127.0.0.1:80:3000
